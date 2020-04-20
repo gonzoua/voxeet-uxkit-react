@@ -1,0 +1,25 @@
+name: voxeet-uxkit-react
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node_env: [staging, production]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: setting nodejs
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12
+    - name: yarn install, build for ${{ matrix.node_env }}
+      run: |
+        yarn install
+        yarn build
+      env:
+        NODE_ENV: ${{ matrix.node_env }}
