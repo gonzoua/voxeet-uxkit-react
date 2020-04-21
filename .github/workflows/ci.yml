@@ -1,15 +1,16 @@
-name: voxeet-uxkit-react
+name: voxeet-uxkit-react CI
 
-on: [push]
+on:
+  push:
+    branches:
+      - cicd-experiment
 
 jobs:
   build:
 
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node_env: [staging, production]
+    env:
+        SHA8: ${GITHUB_SHA::8}
 
     steps:
     - uses: actions/checkout@v2
@@ -17,7 +18,12 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 12
-    - name: yarn install, build for ${{ matrix.node_env }}
+    - name: yarn install, build
       run: |
-        yarn install
-        yarn build
+        echo yarn install
+        echo yarn build
+
+    - uses: rlespinasse/github-slug-action@master
+    - name: yarn publish
+      run: |
+          echo yarn version ${{ env.GITHUB_REF_SLUG }}-${{ env.GITHUB_SHA_SHORT }}
