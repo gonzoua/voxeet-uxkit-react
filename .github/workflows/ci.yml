@@ -9,8 +9,6 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    env:
-        SHA8: ${GITHUB_SHA::8}
 
     steps:
     - uses: actions/checkout@v2
@@ -18,6 +16,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 12
+        registry-url: 'https://registry.npmjs.org'
     - name: yarn install, build
       run: |
         echo yarn install
@@ -26,4 +25,7 @@ jobs:
     - uses: rlespinasse/github-slug-action@master
     - name: yarn publish
       run: |
-          echo yarn version ${{ env.GITHUB_REF_SLUG }}-${{ env.GITHUB_SHA_SHORT }}
+          echo yarn version $(npm --silent run get-version)-${{ env.GITHUB_REF_SLUG }}-${{ env.GITHUB_SHA_SHORT }}
+          echo yarn publish with token x $NODE_AUTH_TOKEN x
+      env:
+          NODE_AUTH_TOKEN: ${{ secrets.YARN_TOKEN }}
