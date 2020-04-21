@@ -18,10 +18,10 @@ jobs:
       with:
         node-version: 12
         registry-url: 'https://stg-gke-eu.voxeet.net/nexus/repository/npm-group/'
-    - name: npm i/build
+    - name: build package
       run: |
-        npm i
-        npm run build
+        yarn install
+        yarn build
       env:
           NODE_AUTH_TOKEN: ${{ secrets.NEXUS_AUTH_TOKEN }}
 
