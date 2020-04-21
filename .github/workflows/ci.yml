@@ -18,10 +18,11 @@ jobs:
       with:
         node-version: 12
         registry-url: 'https://stg-gke-eu.voxeet.net/nexus/repository/npm-group/'
+        always-auth: true
     - name: build package
       run: |
         cat $NPM_CONFIG_USERCONFIG
-        yarn --verbose install
+        yarn install
         yarn build
       env:
           NODE_AUTH_TOKEN: ${{ secrets.NEXUS_AUTH_TOKEN }}
