@@ -21,5 +21,3 @@ jobs:
       run: |
         yarn install
         yarn build
-      env:
-        NODE_ENV: ${{ matrix.node_env }}
