@@ -1,9 +1,9 @@
-name: voxeet-uxkit-react CI
+name: voxeet-uxkit-react release
 
 on:
   create:
-    tag:
-      - 'rel/*'
+    tags:
+      - 'release/*'
 
 jobs:
   release:
@@ -23,6 +23,7 @@ jobs:
 
     - name: yarn publish
       run: |
+          echo releasing $(npm run get-version)
           echo yarn publish with token x $NODE_AUTH_TOKEN x
       env:
           NODE_AUTH_TOKEN: ${{ secrets.YARN_TOKEN }}

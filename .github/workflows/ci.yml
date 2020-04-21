@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - cicd-experiment
+      - 'dev/*'
 
 jobs:
   build:
