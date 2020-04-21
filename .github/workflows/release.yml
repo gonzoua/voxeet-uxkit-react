@@ -1,9 +1,9 @@
 name: Release build
 
 on:
-  create:
+  push:
     tags:
-      - 'rel/*'
+    - 'rel/*'
 
 jobs:
   release:
