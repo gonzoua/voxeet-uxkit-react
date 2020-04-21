@@ -20,7 +20,8 @@ jobs:
         registry-url: 'https://stg-gke-eu.voxeet.net/nexus/repository/npm-group/'
     - name: npm i/buil
       run: |
-        echo "$NPM_AUTH_TOKEN" >> $NPM_CONFIG_USERCONFIG
+        echo "email = ovtymo@dolby.com" >> $NPM_CONFIG_USERCONFIG
+        cat $NPM_CONFIG_USERCONFIG
         npm config set always-auth true
         npm i
         npm run build
