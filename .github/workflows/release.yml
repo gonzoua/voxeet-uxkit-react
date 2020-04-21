@@ -1,0 +1,28 @@
+name: voxeet-uxkit-react CI
+
+on:
+  push:
+    tag:
+      - rel/*
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: setting nodejs
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12
+        registry-url: 'https://registry.npmjs.org'
+    - name: yarn install, build
+      run: |
+        echo yarn install
+        echo yarn build
+
+    - name: yarn publish
+      run: |
+          echo yarn publish with token x $NODE_AUTH_TOKEN x
+      env:
+          NODE_AUTH_TOKEN: ${{ secrets.YARN_TOKEN }}
