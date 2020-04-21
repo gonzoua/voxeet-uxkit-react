@@ -1,9 +1,9 @@
 name: voxeet-uxkit-react CI
 
 on:
-  push:
+  create:
     tag:
-      - rel/*
+      - 'rel/*'
 
 jobs:
   release:
