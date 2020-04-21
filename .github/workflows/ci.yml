@@ -20,6 +20,7 @@ jobs:
         registry-url: 'https://stg-gke-eu.voxeet.net/nexus/repository/npm-group/'
     - name: yarn install, build
       run: |
+        npm config set always-auth true
         yarn --verbose install
         yarn build
       env:
