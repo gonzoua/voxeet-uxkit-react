@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - cicd-experiment
-      - 'dev/*'
+      - cicd-integration
 
 jobs:
   build:
@@ -19,17 +19,10 @@ jobs:
         node-version: 12
         registry-url: 'https://stg-gke-eu.voxeet.net/nexus/repository/npm-group/'
         always-auth: true
-    - name: build package
-      run: |
-        cat $NPM_CONFIG_USERCONFIG
-        yarn install
-        yarn build
-      env:
-          NODE_AUTH_TOKEN: ${{ secrets.NEXUS_AUTH_TOKEN }}
-
     - uses: rlespinasse/github-slug-action@master
-    - name: yarn publish
+    - name: build and publish
       run: |
-          echo yarn version $(npm --silent run get-version)-${{ env.GITHUB_REF_SLUG }}-${{ env.GITHUB_SHA_SHORT }}
+          yarn version --no-git-tag-version --new-version $(npm --silent run get-version)-${{ env.GITHUB_REF_SLUG }}-${{ env.GITHUB_SHA_SHORT }}
+          yarn publish
       env:
           NODE_AUTH_TOKEN: ${{ secrets.NEXUS_AUTH_TOKEN }}
