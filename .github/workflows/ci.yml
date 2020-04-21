@@ -21,7 +21,6 @@ jobs:
     - name: build package
       run: |
         cat $NPM_CONFIG_USERCONFIG
-        cat ~/.yarnrc
         yarn --verbose install
         yarn build
       env:
